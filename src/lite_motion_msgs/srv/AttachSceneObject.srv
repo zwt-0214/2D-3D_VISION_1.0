@@ -1,0 +1,7 @@
+string object_id
+bool attach
+string frame_id
+geometry_msgs/Pose relative_pose
+---
+bool success
+string message

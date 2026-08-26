@@ -1,0 +1,5 @@
+uint8 spin_mode
+uint8 sentry_mode
+uint8 armor_mode
+uint8 align_mode
+uint8 remote_buy_blood

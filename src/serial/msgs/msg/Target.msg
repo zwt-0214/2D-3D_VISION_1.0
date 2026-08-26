@@ -1,0 +1,11 @@
+std_msgs/Header header
+bool aimming
+string id
+geometry_msgs/Point position
+float32 base_yaw
+float32 yaw
+float32 pitch
+float32 incident_yaw
+float32 distance
+float32 hit_radius
+uint8 rune_number

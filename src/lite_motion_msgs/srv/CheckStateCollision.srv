@@ -1,0 +1,10 @@
+string group_name
+float64[] joint_positions
+---
+bool success
+bool in_collision
+string category
+string object_a
+string object_b
+string detail
+string message

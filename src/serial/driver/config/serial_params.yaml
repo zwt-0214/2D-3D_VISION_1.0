@@ -1,0 +1,28 @@
+/**:
+  ros__parameters:
+    device_name: "/dev/serial/by-id/usb-STMicroelectronics_STM32_Virtual_ComPort_317136593233-if00"
+    baud_rate: 9600
+    flow_control: "none"
+    parity: "none"
+    stop_bits: "1"
+
+    # Navigation/chassis serial fields are still kept in the packet prefix.
+    # Do not remove the serial parameters above when only the arm is being tested.
+
+    # Upper computer <-> lower computer arm serial bridge.
+    # Subscribes to tzb_catch arm command and sends 6 joint angles at 20 Hz.
+    tzb.arm_serial_enabled: true
+    tzb.include_arm_serial_extension: true
+    tzb.arm_command_topic: "/tzb_catch/arm_joint_command"
+    tzb.arm_state_topic: "/serial/arm_joint_state"
+    tzb.arm_joint_names: ["J1_joint", "J2_joint", "J3_joint", "J4_joint", "J5_joint", "J6_joint"]
+    # Unit used only on the binary serial wire for arm joint angles.
+    # ROS JointState and planner parameters stay in radians unless their own YAML says otherwise.
+    tzb.arm_serial_angle_unit: "rad"
+    tzb.arm_command_publish_hz: 20.0
+    tzb.arm_command_speed_scale: 1.0
+    tzb.arm_command_goal_tolerance_rad: 0.005
+    tzb.max_arm_command_velocity_rad_s: [0.5, 0.5, 0.5, 0.8, 0.8, 1.0]
+    tzb.arm_command_publish_during_replay: false
+    tzb.sequence_loop: false
+    tzb.loop_pause_sec: 0.5

@@ -1,0 +1,85 @@
+pose_estimation_node:
+  ros__parameters:
+
+    model_path: "/home/zwt/E_1w.pcd"
+
+    # Topics
+    pointcloud_topic: "/camera/depth/points"
+    detection_topic: "/yolo/detections"
+    target_class: ""
+    object_pose_topic: "/pose_estimator/object_pose"
+    pose_yaw: 0.0
+    camera_info_topic: "/camera/color/camera_info"
+    camera_frame: ""
+
+    # Complete model: about 10k points, 0.1 x 0.1 x 0.15 m.
+    # The model is not downsampled. Only the scene ROI uses this voxel grid.
+    scene_voxel_size: 0.002
+
+    # Normals are used only by the single-scale FPFH global registration.
+    normal_radius: 0.010
+    normal_max_nn: 50
+    feature_radius: 0.020
+    feature_max_nn: 100
+    model_auto_unit_scale: true
+
+    # One FPFH/RANSAC hypothesis. Full-model-to-visible-surface overlap is
+    # intentionally not used as a quality gate.
+    global_ransac_enable: true
+    global_ransac_retry_interval_sec: 0.05
+    ransac_n: 3
+    ransac_max_iter: 50000
+    ransac_dist_thresh: 0.008
+    ransac_mutual_filter: false
+    ransac_confidence: 0.999
+    ransac_edge_length_ratio: 0.85
+
+    # Scene-side quality: for every ROI point, query its nearest transformed
+    # model point. Coverage uses scene_coverage_dist_thresh.
+    scene_coverage_dist_thresh: 0.004
+    coarse_min_scene_coverage: 0.25
+    coarse_max_scene_median: 0.012
+    icp_min_scene_coverage: 0.45
+    icp_max_scene_median: 0.006
+    tracking_min_scene_coverage: 0.35
+    tracking_max_scene_median: 0.008
+
+    # One Point-to-Point ICP. A candidate outside the trust region, or one
+    # that degrades coverage/median beyond the voxel-scale tolerance, falls
+    # back to the RANSAC input.
+    icp_dist_thresh: 0.008
+    icp_max_iter: 60
+    icp_relative_fitness: 5.0e-5
+    icp_relative_rmse: 5.0e-5
+    global_icp_max_translation: 0.025
+    global_icp_max_axis_deg: 25.0
+    icp_max_scene_coverage_drop: 0.02
+    icp_max_scene_median_increase: 0.001
+
+    # Previous-pose Point-to-Point tracking.
+    tracking_icp_dist_thresh: 0.005
+    tracking_icp_max_iter: 30
+    max_tracking_translation_jump: 0.020
+    max_tracking_rotation_jump_deg: 30.0
+    axisymmetric_ignore_yaw_jump: true
+    roi_timeout_sec: 0.35
+
+    # RViz: downsampled ROI, blue accepted RANSAC input, green final/tracking.
+    publish_roi_cloud: true
+    publish_model_marker: true
+    publish_coarse_pose: true
+    publish_coarse_marker: true
+    viz_publish_every_n: 3
+
+    # ROI crop and detector gating.
+    bbox_expand_ratio: 0.10
+    bbox_expand_ratio_long: 0.02
+    bbox_expand_ratio_width: 0.02
+    rough_crop_pad_ratio: 0.35
+    min_scene_points: 250
+    det_min_score: 0.87
+    bbox_smoothing_enable: true
+    bbox_ema_alpha: 0.65
+
+    timing_log_enable: true
+    timing_log_throttle_sec: 0.5

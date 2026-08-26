@@ -1,0 +1,78 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 0.25
+      Plane Cell Count: 40
+    - Class: rviz_default_plugins/RobotModel
+      Name: RobotModel
+      Enabled: true
+      Description Topic:
+        Value: /robot_description
+      Visual Enabled: true
+      Collision Enabled: true
+      Alpha: 0.35
+    - Class: rviz_default_plugins/MarkerArray
+      Name: CollisionMarkers
+      Enabled: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /lite_motion_planner/collision_markers
+      Namespaces:
+        robot_collision: true
+        scene_collision: true
+        attached_collision: true
+        scene_collision_origin: true
+        attached_collision_origin: true
+        scene_collision_label: true
+        attached_collision_label: true
+      Queue Size: 10
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Name: TzbCatchReferences
+      Enabled: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /tzb_catch/reference_frames
+      Queue Size: 10
+      Value: true
+    - Class: rviz_default_plugins/Marker
+      Name: TzbCatchE3
+      Enabled: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /tzb_catch/e3_marker
+      Queue Size: 10
+      Value: true
+  Global Options:
+    Fixed Frame: base_link
+    Background Color: 48; 48; 48
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 2.5
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0.5
+      Pitch: 0.6
+      Yaw: 0.8

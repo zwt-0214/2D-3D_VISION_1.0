@@ -1,0 +1,184 @@
+/**:
+  ros__parameters:
+    urdf_path: "/home/zwt/tzb_ws/src/engineer_0520_description/urdf/engineer_0520_description.urdf"
+    srdf_path: "/home/zwt/tzb_ws/src/lite_motion_planner/config/engineer_0520_description.srdf"
+    mesh_package_dirs:
+      - "/home/zwt/tzb_ws/src/engineer_0520_description"
+
+    planning_frame: "base_link"
+    default_group: "tzb_group"
+    default_ee_frame: "tcp_link"
+
+    planning_timeout: 2.0
+    ompl_max_plan_attempts: 4
+
+    ik_max_iterations: 400
+    ik_pos_tolerance: 0.008
+    ik_rot_tolerance: 0.08
+    ik_damping: 1.0e-6
+    ik_alpha: 0.6
+    ik_max_step_norm: 0.5
+    ik_max_seed_count: 32
+
+    collision_check_resolution: 0.02
+    trajectory_collision_check_step: 0.05
+    cartesian_max_rotation_step_rad: 0.7853981633974483
+    cartesian_min_interpolation_steps: 1
+    cartesian_max_interpolation_steps: 0
+    cartesian_segment_length_refinement_max_steps: 96
+    cartesian_diagnostics_enabled: false
+    cartesian_diagnostics_suspicious_path_m: 0.10
+    cartesian_diagnostics_suspicious_ratio: 5.0
+    control_period: 0.01
+
+    # joint_trajectory_topic: "/joint_trajectory_controller/joint_trajectory"
+
+    target_pose:
+      header:
+        frame_id: base_link
+
+    enable_visualization: true
+    enable_moveit_visualization: true
+    launch_visualization_rviz: true
+    launch_robot_state_publisher: true
+
+    publish_joint_states_for_visualization: true
+    enable_joint_state_playback: true
+    joint_state_playback_loop: false
+    joint_state_playback_speed_scale: 0.7
+
+    publish_moveit_display_trajectory: true
+    publish_moveit_planning_scene: true
+    publish_moveit_monitored_planning_scene: true
+    publish_collision_markers: false
+    publish_robot_collision_markers: false
+    publish_collision_labels: true
+    publish_e3_marker: false
+    e3_marker_topic: "/engineer_0520/e3_marker"
+    e3_marker_republish_hz: 5.0
+    e3_marker_object_id: "E3"
+
+    relaxed_scene_collision_object_id: "E3"
+    relaxed_scene_collision_object_ids: [""]
+    relaxed_scene_collision_links: ["tcp_link", "J6_link", "claw1_link", "claw2_link"]
+    relaxed_scene_collision_allowed_penetration: 0.005
+    gripper_scene_collision_object_ids: [""]
+    gripper_scene_collision_links: ["claw1_link", "claw2_link"]
+    gripper_scene_collision_allowed_penetration: 0.0
+    gripper_self_collision_links: ["claw1_link", "claw2_link"]
+    gripper_self_collision_allowed_penetration: 0.0
+    self_collision_allowed_penetration: 0.0
+
+    moveit_display_trajectory_topic: "/display_planned_path"
+    moveit_planning_scene_topic: "/planning_scene"
+    moveit_monitored_planning_scene_topic: "/monitored_planning_scene"
+    visualization_joint_states_topic: "/joint_states"
+
+    tzb.arm_group: "tzb_group"
+    tzb.tcp_frame: "tcp_link"
+
+    tzb.e3_object_id: "E3"
+    tzb.e3_mesh_resource: "/home/zwt/tzb_ws/src/lite_motion_planner/config/E3.STL"
+    tzb.mesh_scale: [0.001, 0.001, 0.001]
+
+    # E3_target is interpreted in tzb.e3_target_frame, then transformed to base_link.
+    # tzb.e3_target_frame: "base_link"
+    tzb.e3_target_frame: "camera_link"
+
+    tzb.e3_target_xyz: [0.0, 0.50, 0.50]
+    tzb.e3_target_rpy: [-1.57, 0.0, -1.57]
+    # true: use the YAML E3 target above for debugging.
+    # false: subscribe to pose_estimator target pose, convert into camera_link, then apply axis conversion.
+    tzb.use_yaml_e3_target: false
+    tzb.pose_estimator_target_topic: "/pose_estimator/object_pose"
+    tzb.pose_estimator_wait_timeout_sec: 3.0
+    tzb.pose_estimator_continuous_required_sec: 2.0
+    tzb.pose_estimator_continuous_max_gap_sec: 0.75
+    # Correct the real camera/reference axes relative to the robot model camera_link.
+    # With tzb.apply_reference_transform_to_frozen_frame=true, this matrix is applied
+    # to tzb_observe_camera_link itself, not to individual pose/point coordinates:
+    # base_link_from_tzb_observe_camera_link =
+    #   base_link_from_camera_link * pose_estimator_reference_transform_matrix.
+    # Current value is based on the previous corrected frame, then applies local
+    # yaw=-1.57 followed by local roll=-1.57.
+    tzb.pose_estimator_reference_frame: "camera_link"
+    tzb.pose_estimator_reference_transform_matrix: [
+      -1.0, 0.0, 0.0, 0.0,
+      0.0, 0.0, 1.0, 0.0,
+      0.0, 1.0, 0.0, 0.0,
+      0.0, 0.0, 0.0, 1.0
+    ]
+    # RViz debug point cloud uses a shadow camera frame. Before observe this frame follows
+    # camera_link; at the first observe pose it freezes and no longer follows arm motion.
+    tzb.freeze_camera_pointcloud_enabled: true
+    tzb.camera_pointcloud_topic: "/camera/depth/points"
+    tzb.frozen_camera_pointcloud_topic: "/tzb_catch/frozen_observe_camera_points"
+    tzb.frozen_camera_frame_id: "tzb_observe_camera_link"
+    # true: multiply pose_estimator_reference_transform_matrix into the shadow/frozen
+    # camera frame itself. The point cloud and pose data keep their raw coordinates.
+    tzb.apply_reference_transform_to_frozen_frame: true
+    tzb.transform_frozen_pointcloud_to_reference_frame: true
+    tzb.frozen_camera_pointcloud_log_throttle_sec: 2.0
+    tzb.pose_estimator_axis_conversion_matrix: [
+      1.0, 0.0, 0.0,
+      0.0, 1.0, 0.0,
+      0.0, 0.0, 1.0
+    ]
+    tzb.pre_grasp_distance_m: 0.08
+
+    # Single-arm joint presets, matching tzb_group order:
+    # [J1_joint, J2_joint, J3_joint, J4_joint, J5_joint, J6_joint]
+    # tzb.ini_joint_positions and tzb.observe_joint_positions use this unit.
+    # Set to "deg" if you want to write those YAML joint angles in degrees.
+    tzb.joint_positions_unit: "rad"
+    tzb.ini_joint_positions: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    tzb.observe_joint_positions: [0.0, 0.0, -1.7, 0.0, -1.57, 0.0]
+
+    # Gripper is commanded directly as a JointTrajectory because the new SRDF
+    # only defines the arm group.
+    tzb.gripper_joint_names: ["claw1_joint", "claw2_joint"]
+    tzb.gripper_home_positions: [0.0, 0.0]
+    tzb.gripper_open_positions: [-0.06, 0.06]
+    tzb.gripper_close_positions: [0.0, 0.0]
+
+    tzb.grasp_collision_links: ["tcp_link", "J6_link", "claw1_link", "claw2_link"]
+    # Negative means full ignore for these E3-vs-gripper pairs during grasp.
+    tzb.grasp_collision_allowed_penetration: -1.0
+
+    tzb.joint_planning_timeout: 2.0
+    tzb.cartesian_planning_timeout: 2.0
+    tzb.path_check_step: 0.05
+    tzb.cartesian_max_step_m: 0.02
+    tzb.cartesian_min_interpolation_steps: 2
+    tzb.cartesian_refinement_max_steps: 16
+    tzb.cartesian_use_request_solver_settings: true
+    tzb.cartesian_use_sdls: true
+    tzb.cartesian_ik_max_iterations: 800
+    tzb.cartesian_ik_pos_tolerance: 0.01
+    tzb.cartesian_ik_rot_tolerance: 0.05
+    tzb.cartesian_ik_damping: 1.0e-3
+    tzb.cartesian_ik_alpha: 0.55
+    tzb.cartesian_ik_max_step_norm: 0.25
+    tzb.cartesian_ik_max_seed_count: 12
+    tzb.cartesian_nullspace_gain: 0.0
+    tzb.cartesian_singular_threshold: 0.03
+    tzb.cartesian_branch_jump_max_rad: 0.75
+    tzb.cartesian_branch_jump_norm_max: 1.20
+    tzb.cartesian_waypoint_pos_tolerance: 0.002
+    tzb.cartesian_waypoint_rot_tolerance: 0.05
+
+    tzb.post_action_wait_sec: 0.05
+    tzb.service_wait_sec: 30.0
+    tzb.response_wait_sec: 30.0
+    tzb.e3_marker_topic: "/tzb_catch/e3_marker"
+    tzb.reference_marker_republish_hz: 5.0
+    tzb.joint_goal_tolerance_rad: 0.01
+    tzb.arm_command_enabled: true
+    tzb.arm_command_topic: "/tzb_catch/arm_joint_command"
+    tzb.arm_command_publish_hz: 20.0
+    tzb.arm_command_speed_scale: 1.0
+    tzb.arm_command_goal_tolerance_rad: 0.005
+    tzb.max_arm_command_velocity_rad_s: [0.5, 0.5, 0.5, 0.8, 0.8, 1.0]
+    tzb.arm_command_publish_during_replay: false
+    tzb.sequence_loop: false
+    tzb.loop_pause_sec: 0.5

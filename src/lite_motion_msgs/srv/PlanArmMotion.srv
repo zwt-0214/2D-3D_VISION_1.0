@@ -1,0 +1,120 @@
+string group_name
+string ee_frame
+bool use_pose_goal
+geometry_msgs/PoseStamped target_pose
+float64[] start_joint_positions
+float64[] goal_joint_positions
+# When true, compute and return the trajectory but do not publish command,
+# display trajectory, or playback visualization state.
+bool plan_only
+bool use_cartesian_path
+float64 cartesian_max_step
+# Optional non-Cartesian pose-goal IK task weighting.
+# When true, planning_node solves IK with task weights [1,1,1,wx,wy,wz].
+# This is mainly used by haomu_catch final zc_* placement: strong TCP position,
+# weak roll/pitch, and yaw completely free by setting wz=0.
+bool use_weighted_orientation_goal
+float64 orientation_weight_x
+float64 orientation_weight_y
+float64 orientation_weight_z
+
+# Optional Cartesian waypoint yaw tolerance.
+# When enabled, planning_node first tries the exact interpolated waypoint.  If
+# that waypoint has no collision-free IK, it samples yaw about cartesian_yaw_axis
+# in the planning frame.  Optional target fields select the feasible yaw whose
+# target-frame yaw, expressed in cartesian_yaw_reference_orientation, is closest
+# to cartesian_yaw_target_rad; optional range fields restrict that same
+# reference-frame yaw before selection.
+bool use_cartesian_yaw_tolerance
+float64 cartesian_yaw_tolerance_rad
+int32 cartesian_yaw_sample_count
+geometry_msgs/Vector3 cartesian_yaw_axis
+bool use_cartesian_yaw_target
+float64 cartesian_yaw_target_rad
+geometry_msgs/Quaternion cartesian_yaw_reference_orientation
+string cartesian_yaw_target_frame
+bool use_cartesian_yaw_reference_range
+float64 cartesian_yaw_reference_min_rad
+float64 cartesian_yaw_reference_max_rad
+# Internal retry mode for flows that already tested the exact RPY in the live
+# attachment state.  When true, yaw tolerance evaluates only nonzero yaw samples.
+bool skip_cartesian_yaw_exact
+
+# Optional per-request solver/planner overrides. Values <= 0 keep planning_node defaults.
+# Used by haomu_catch zc_* placement and post-release return_home to avoid
+# globally slowing other tasks.
+bool use_request_solver_settings
+int32 request_ik_max_iterations
+float64 request_ik_pos_tolerance
+float64 request_ik_rot_tolerance
+float64 request_ik_damping
+float64 request_ik_alpha
+float64 request_ik_max_step_norm
+int32 request_ik_max_seed_count
+# Use selectively damped least squares for IK updates. This is intended for
+# Cartesian waypoint tracking near singularities: the Jacobian SVD is still
+# used as a pseudoinverse, but each singular-vector contribution is damped
+# independently instead of applying one global damping value.
+bool request_use_sdls
+# Cartesian continuous-IK null-space gain. For 7-DoF arms, this keeps redundant
+# joints close to the previous waypoint while the 6D task uses DLS/SDLS.
+float64 request_cartesian_nullspace_gain
+# Singular diagnosis threshold on the weighted 6D Jacobian minimum singular value.
+float64 request_cartesian_singular_threshold
+# If continuous DLS/SDLS fails but a detached IK branch exists, accept it only
+# when the jump from the previous Cartesian waypoint remains below these limits.
+float64 request_cartesian_branch_jump_max_rad
+float64 request_cartesian_branch_jump_norm_max
+# Tight per-waypoint Cartesian tolerances. Defaults in planning_node are smaller
+# than the global IK tolerances so short interpolation steps cannot be accepted
+# without actually moving.
+float64 request_cartesian_waypoint_pos_tolerance
+float64 request_cartesian_waypoint_rot_tolerance
+float64 request_planning_timeout
+float64 request_path_check_step
+# Optional Cartesian failure recovery for redundant arms. If a Cartesian
+# waypoint has no valid IK/collision-free solution, the planner first tries a
+# null-space reconfiguration that keeps the end-effector pose nearly fixed and
+# moves the likely blocking joint away from a limit/collision branch.
+bool request_use_cartesian_nullspace_recovery
+int32 request_cartesian_nullspace_recovery_max_attempts
+int32 request_cartesian_nullspace_recovery_max_iterations
+float64 request_cartesian_nullspace_recovery_pos_tolerance
+float64 request_cartesian_nullspace_recovery_roll_pitch_tolerance
+float64 request_cartesian_nullspace_recovery_yaw_reference_min_rad
+float64 request_cartesian_nullspace_recovery_yaw_reference_max_rad
+geometry_msgs/Quaternion request_cartesian_nullspace_recovery_reference_orientation
+float64 request_cartesian_nullspace_recovery_step_norm
+float64 request_cartesian_nullspace_recovery_joint_gain
+float64 request_cartesian_nullspace_recovery_min_joint_change
+# Optional secondary joint target for null-space recovery. When populated with
+# one value per group joint, the recovery projects an attraction toward these
+# joints into the Jacobian null space while still prioritizing the TCP pose.
+bool request_use_cartesian_nullspace_reference
+float64[] request_cartesian_nullspace_reference_joints
+float64 request_cartesian_nullspace_reference_gain
+# When true with a Cartesian pose request, do only a null-space settle toward
+# request_cartesian_nullspace_reference_joints while holding the current EE pose.
+bool request_cartesian_nullspace_settle_only
+# Optional hard Cartesian-path shape guard. Values <= 0 disable it.
+# For Cartesian planning, each accepted interpolation segment must keep the
+# measured end-effector frame path length below this value.
+float64 request_cartesian_max_segment_path_length
+# Optional per-request Cartesian interpolation controls. Values <= 0 keep
+# planning_node defaults. request_cartesian_refinement_max_steps bounds the
+# adaptive split retry budget after hard frame-path checks.
+int32 request_cartesian_min_interpolation_steps
+int32 request_cartesian_refinement_max_steps
+# Optional per-request collision penetration allowance applied globally.
+float64 request_global_collision_allowed_penetration
+int32 request_ompl_max_plan_attempts
+int32 request_max_ik_goal_candidates
+string[] obstacle_ids
+shape_msgs/SolidPrimitive[] obstacle_shapes
+geometry_msgs/PoseStamped[] obstacle_poses
+---
+bool success
+string message
+trajectory_msgs/JointTrajectory trajectory
+bool used_cartesian_yaw_tolerance
+float64 cartesian_yaw_offset_rad

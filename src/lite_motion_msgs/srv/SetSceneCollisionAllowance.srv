@@ -1,0 +1,6 @@
+string[] object_ids
+string[] link_names
+float64 allowed_penetration
+---
+bool success
+string message

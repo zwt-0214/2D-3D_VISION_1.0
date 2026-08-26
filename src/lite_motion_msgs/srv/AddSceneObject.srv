@@ -1,0 +1,9 @@
+string object_id
+string mesh_resource
+geometry_msgs/PoseStamped pose
+float64[] mesh_scale
+shape_msgs/SolidPrimitive collision_primitive
+geometry_msgs/Pose collision_pose
+---
+bool success
+string message
