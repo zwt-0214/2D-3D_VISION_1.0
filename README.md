@@ -171,12 +171,14 @@ qq：3857915972
 
 ﻿
 您可能会用到的工具：
-    https://github.com/zwt-0214/pcd_tool
 将stl渲染成自定义点云总数量的.pcd模型
-﻿    https://github.com/zwt-0214/yoloe_tools
+    https://github.com/zwt-0214/pcd_tool 
+    
 利用yoloe用提示词烘焙模型
+﻿    https://github.com/zwt-0214/yoloe_tools
+
 旧版本双臂机器人的机械臂运动学解算部分（没有机会上实车测试，慎用）
-https://github.com/zwt-0214/dog2b
+    https://github.com/zwt-0214/dog2b
 
 项目地址：
 
