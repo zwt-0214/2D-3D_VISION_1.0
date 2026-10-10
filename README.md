@@ -1,5 +1,5 @@
 如果您希望看到实时最新版本的方案，请移步
-https://github.com/zwt-0214/tzb
+    https://github.com/zwt-0214/tzb
 
 在robomaster26赛季，工程机器人及其经济体系大改，尺寸与重量限制紧张的同时，新的能量单元、科技核心与装甲板不同，仅凭2D的视觉特征其一难以满足其较高精度的位姿需求，其二使用yolopose又会过大地消耗人力标注数据集，且工程机器人没有过高的实时性与动态目标追踪等需求，使得单纯复用自瞄框架并不是合理的选择
 
@@ -108,18 +108,21 @@ qq：3857915972
 
 数据集存放在：
 
- https://pan-yz.cldisk.com/v2/external/resourceDetail.html?appid=1D734FA7-035A-4DEC-AA1C-DD63331D9267&nonce=261208913×tamp=1791560950903&showAppBar=true&puid=356262565&autoPreview=true&resid=1302661632166629376&objectId=&signature=e3d787c86769bd6e2db9c12d35c94c85 
+     https://pan-yz.cldisk.com/v2/external/resourceDetail.html?appid=1D734FA7-035A-4DEC-AA1C-DD63331D9267&nonce=261208913×tamp=1791560950903&showAppBar=true&puid=356262565&autoPreview=true&resid=1302661632166629376&objectId=&signature=e3d787c86769bd6e2db9c12d35c94c85 
 
 ﻿
 
- https://pan-yz.cldisk.com/v2/external/resourceDetail.html?appid=1D734FA7-035A-4DEC-AA1C-DD63331D9267&nonce=1604847939×tamp=1791560970378&showAppBar=true&puid=356262565&autoPreview=true&resid=1302404153441738752&objectId=&signature=a9425be1229f39e91c2ac41fc696b0ea 
+     https://pan-yz.cldisk.com/v2/external/resourceDetail.html?appid=1D734FA7-035A-4DEC-AA1C-DD63331D9267&nonce=1604847939×tamp=1791560970378&showAppBar=true&puid=356262565&autoPreview=true&resid=1302404153441738752&objectId=&signature=a9425be1229f39e91c2ac41fc696b0ea 
 
 ﻿
-
-﻿
+您可能会用到的工具：
+    https://github.com/zwt-0214/pcd_tool
+将stl渲染成自定义点云总数量的.pcd模型
+﻿    https://github.com/zwt-0214/yoloe_tools
+利用yoloe用提示词烘焙模型
 
 项目地址：
 
- https://github.com/zwt-0214/2D-3D_VISION_1.0 
+     https://github.com/zwt-0214/2D-3D_VISION_1.0 
 
 可能存在部分疏漏，后续如有更新，请以最新版本为准
