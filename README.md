@@ -137,6 +137,7 @@ Orbbec 相机
 配置见 [params.yaml](src/pose_estimator/config/params.yaml#L1)。
 
 
+
 笔者目前没有做到的：
 1.更快速地奇异点处理
 （或许可以有办法跳过奇异点？）
@@ -174,6 +175,8 @@ qq：3857915972
 将stl渲染成自定义点云总数量的.pcd模型
 ﻿    https://github.com/zwt-0214/yoloe_tools
 利用yoloe用提示词烘焙模型
+旧版本双臂机器人的机械臂运动学解算部分（没有机会上实车测试，慎用）
+https://github.com/zwt-0214/dog2b
 
 项目地址：
 
